@@ -48,13 +48,18 @@ function PostPage(props) {
                 <CreateNewPostBtn getPost={getPostData} socket={socket} />
             </div>
             <div className='container'>
+                {postArr.length > 0?
                 <div className='row'>
                     {postArr.map((data, index) =>
                         <div key={index} className='col-md-3 col-12'>
                             <PostsCard postData={data} userData={userData} getPost={getPostData} socket={socket} />
                         </div>
                     )}
+                </div>:
+                <div>
+                    <div className='text-center py-5 text-danger'>Posts not found!</div>
                 </div>
+                }
             </div>
         </main>
     );
