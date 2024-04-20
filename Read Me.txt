@@ -1,0 +1,12 @@
+Step 1 :
+    - create database in mysql
+    - change configuration db connection in "mysql_db_schema.js" file.
+Step 2 :
+    - change CLIENT_URL in "server/.env" file
+    - change NEXT_PUBLIC_API_URL in "frontend/.env" file
+Step 3 :
+    - in terminal npm i in both directory
+Stem 4 :
+    - for server start run command npm start
+    - for frontend start run command npm run dev
+    
