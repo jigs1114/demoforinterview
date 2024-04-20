@@ -18,6 +18,7 @@ import { toast } from 'react-toastify';
 
 function PostsCard(props) {
     const socket = props.socket
+    let baseUrl = process.env.NEXT_PUBLIC_API_URL
     // const [anchorEl, setAnchorEl] = useState(null);
     const [postData, setPostData] = useState(props.postData);
     const [postImages, setPostImages] = useState([]);
@@ -90,7 +91,8 @@ function PostsCard(props) {
         })
     }
 
-    const onSubmitComment = async () => {
+    const onSubmitComment = async (e) => {
+        e.preventDefault()
         let token = localStorage.getItem('userToken')
         let userData = props.userData
         let dataObject = {
@@ -147,28 +149,30 @@ function PostsCard(props) {
                                 </div> : <div className='py-5 text-center text-danger fs-3'>no comments yet!</div>}
 
                         </div>
-                        <div className='mb-3'>
-                            <FormControl fullWidth variant="outlined">
-                                <InputLabel htmlFor="outlined-adornment-password">Comments</InputLabel>
-                                <OutlinedInput
-                                    type={'text'}
-                                    onChange={e => setComments(e.target.value)}
-                                    name="comments"
-                                    value={comments}
-                                    variant='outlined'
-                                    endAdornment={
-                                        <InputAdornment position="end" >
-                                            <IconButton
-                                                onClick={onSubmitComment}
-                                                edge="end"
-                                            >
-                                                <SendOutlined />
-                                            </IconButton>
-                                        </InputAdornment>
-                                    }
-                                    label="Password"
-                                />
-                            </FormControl>
+                        <div className='mb-3 p-3'>
+                            <form onSubmit={onSubmitComment} autoComplete='off'>
+                                <FormControl fullWidth variant="outlined">
+                                    <InputLabel htmlFor="outlined-adornment-password">Comments</InputLabel>
+                                    <OutlinedInput
+                                        type={'text'}
+                                        onChange={e => setComments(e.target.value)}
+                                        name="comments"
+                                        value={comments}
+                                        variant='outlined'
+                                        endAdornment={
+                                            <InputAdornment position="end" >
+                                                <IconButton
+                                                type='submit'
+                                                    edge="end"
+                                                >
+                                                    <SendOutlined />
+                                                </IconButton>
+                                            </InputAdornment>
+                                        }
+                                        label="Password"
+                                    />
+                                </FormControl>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -218,7 +222,7 @@ function PostsCard(props) {
                 <Carousel autoPlay={false} swipeable emulateTouch showArrows={false} showThumbs={false}>
                     {postImages.map((imageUrl, i) => (
                         <div key={i}>
-                            <img src={`http://172.20.10.4:3001/images/${imageUrl}`} alt={`Image ${i}`} />
+                            <img src={`${baseUrl}/images/${imageUrl}`} alt={`Image ${i}`} />
                         </div>
                     ))}
                 </Carousel>

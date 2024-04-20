@@ -1,5 +1,5 @@
-export let serverUrl = 'http://172.20.10.4:3001'
 export async function apiCall(endpoint, auth = "", body = null, method = 'GET') {
+     let serverUrl = process.env.NEXT_PUBLIC_API_URL
     try {
         let header = body instanceof FormData ?
             { 'Authorization': 'Bearer ' + auth }

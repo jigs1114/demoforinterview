@@ -23,6 +23,7 @@ function Registration() {
 
     const onSubmitHandle = async (e) => {
         e.preventDefault()
+        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
         if(formData.first_name === ''){
             toast.error('First name is required!')
             return
@@ -33,6 +34,10 @@ function Registration() {
         }
         if(formData.email_id === ''){
             toast.error('Email ID is required!')
+            return
+        }
+        if(!formData.email_id.match(emailRegex)){
+            toast.error('Invalid email id!')
             return
         }
         if(formData.password === ''){

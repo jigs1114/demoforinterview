@@ -9,10 +9,9 @@ const fileUpload = require('express-fileupload');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server, {
     cors: {
-        origin: "http://172.20.10.4:3000"
+        origin: process.env.CLIENT_URL
     }
 });
-
 // Middleware
 app.use(cors());
 app.use(helmet( {crossOriginResourcePolicy: false}));

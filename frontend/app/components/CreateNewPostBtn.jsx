@@ -29,20 +29,33 @@ function CreateNewPostBtn(props) {
         }
     }, [])
     const onSelectFiles = (e) => {
+        const files = e.target.files;
+        const allowedTypes = ["image/jpeg", "image/jpg", "image/png"];
+        const maxSize = 5 * 1024 * 1024;
 
-        const files = e.target.files
-        console.log(files);
-        setImagesFilesArr(files)
-        setOpenForm(true)
-        let tempArr = []
+        let tempArr = [];
+        let validFiles = [];
         for (let index = 0; index < files.length; index++) {
-            const element = files[index];
-            console.log(element);
-            let url = URL.createObjectURL(element)
-            tempArr.push(url)
+            const file = files[index];
+            if (allowedTypes.includes(file.type) && file.size <= maxSize) {
+                validFiles.push(file);
+                let url = URL.createObjectURL(file);
+                tempArr.push(url);
+            } else {
+                toast.error(`File "${file.name}" is not a valid type or exceeds the size limit.`)
+            }
         }
-        setImagesUrlsArr(tempArr)
+
+        if (validFiles.length > 0) {
+            console.log(validFiles);
+            setImagesFilesArr(validFiles);
+            setOpenForm(true);
+            setImagesUrlsArr(tempArr);
+        } else {
+            toast.error("No valid files were selected.")
+        }
     }
+
     const onClickClose = () => {
         setImagesFilesArr([])
         setImagesUrlsArr([])
