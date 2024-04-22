@@ -1,12 +1,11 @@
-Step 1 :
-    - create database in mysql
-    - change configuration db connection in "mysql_db_schema.js" file.
-Step 2 :
-    - change CLIENT_URL in "server/.env" file with IP for socket connection
-    - change NEXT_PUBLIC_API_URL in "frontend/.env" file with IP for socket connection
-Step 3 :
-    - in terminal npm i in both directory
-Stem 4 :
-    - for server start run command npm start
-    - for frontend start run command npm run dev
-    
+Step 1:
+    - Create a database in MySQL.
+    - Change the database connection configuration in the "mysql_db_schema.js" file.
+Step 2:
+    - Change the CLIENT_URL in the "server/.env" file to the IP for socket connection.
+    - Change the NEXT_PUBLIC_API_URL in the "frontend/.env" file to the IP for socket connection.
+Step 3:
+    - In the terminal, run npm i in both directories.
+Step 4:
+    - To start the server, run the command npm start.
+    - To start the frontend, run the command npm run dev.
