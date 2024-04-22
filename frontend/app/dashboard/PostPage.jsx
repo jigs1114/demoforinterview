@@ -46,7 +46,7 @@ function PostPage(props) {
 
     return (
         <main>
-            <div className="position-fixed bottom-0 end-0 p-3 z-50">
+            <div className="position-fixed bottom-0 end-0 p-md-5 p-3 z-50">
                 <CreateNewPostBtn getPost={getPostData} socket={socket} />
             </div>
             <div className='container'>

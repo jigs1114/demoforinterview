@@ -95,7 +95,7 @@ function CreateNewPostBtn(props) {
     return (
         <main>
             <input className='d-none' type='file' ref={fileSelectRef} onChange={onSelectFiles} multiple />
-            <Button variant='contained' className='rounded-circle py-3' onClick={() => fileSelectRef.current.click()}>
+            <Button variant='contained' className='rounded-circle py-3' title='Create New Post' onClick={() => fileSelectRef.current.click()}>
                 <AddIcon />
             </Button>
 
