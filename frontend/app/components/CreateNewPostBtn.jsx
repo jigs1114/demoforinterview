@@ -22,6 +22,7 @@ function CreateNewPostBtn(props) {
     const [imagesUrlsArr, setImagesUrlsArr] = useState([])
     const [description, setDescription] = useState('')
     const [userData, setUserData] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
         return async () => {
             let uData = await LoginUserData()
@@ -63,6 +64,7 @@ function CreateNewPostBtn(props) {
     }
     const onSubmitHandle = async (e) => {
         e.preventDefault();
+        setIsLoading(true)
         let token = localStorage.getItem('userToken');
         let formData = new FormData();
         for (let i = 0; i < imagesFilesArr.length; i++) {
@@ -78,11 +80,14 @@ function CreateNewPostBtn(props) {
                 toast.success(response.data);
                 props.getPost()
                 socket.emit("updatePost", 'Call data')
+                setIsLoading(false)
                 onClickClose()
             } else {
                 toast.error(response.error);
+                setIsLoading(false)
             }
         } catch (error) {
+            setIsLoading(false)
             console.error(error);
         }
     };
@@ -121,7 +126,7 @@ function CreateNewPostBtn(props) {
                             />
                         </div>
                         <div className='my-3'>
-                            <Button type='submit' variant='contained'>Submit</Button>
+                            <Button type='submit' variant='contained' disabled={isLoading}>{isLoading?'Loading...':'Submit'}</Button>
                         </div>
                     </form>
                 </ModalBody>

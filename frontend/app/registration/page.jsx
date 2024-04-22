@@ -16,6 +16,7 @@ function Registration() {
         confirm_password: ''
     }
     const [formData, setFormData] = useState(initialState)
+    const [isLoading, setIsLoading] = useState(false)
     const onChangeHandle = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
@@ -23,6 +24,7 @@ function Registration() {
 
     const onSubmitHandle = async (e) => {
         e.preventDefault()
+        setIsLoading(true)
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
         if(formData.first_name === ''){
             toast.error('First name is required!')
@@ -63,11 +65,14 @@ function Registration() {
             if(res.data){
                 toast.success(res.data)
                 setFormData(initialState)
+                setIsLoading(false)
                 navigate.push('/login')
             }else{
+                setIsLoading(false)
                 toast.error(res.error)
             }
         }).catch(err => {
+            setIsLoading(false)
             console.log(err);
         })
     }
@@ -171,7 +176,7 @@ function Registration() {
                                 </FormControl>
                             </div>
                             <div className='mb-3'>
-                                <Button type='submit' variant='contained'>Login</Button>
+                                <Button type='submit' variant='contained' disabled={isLoading}>{isLoading?'Loading...:':'Registration'}</Button>
                             </div>
                         </form>
                         <Button onClick={()=> navigate.push('/login')}>Already have an account?</Button>

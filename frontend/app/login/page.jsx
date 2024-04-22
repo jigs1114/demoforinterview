@@ -14,6 +14,8 @@ function Login() {
         password: ''
     }
     const [formData, setFormData] = useState(initialState)
+    
+    const [isLoading, setIsLoading] = useState(false)
     const onChangeHandle = (e) => {
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
@@ -21,6 +23,7 @@ function Login() {
 
     const onSubmitHandle = async (e) => {
         e.preventDefault()
+        setIsLoading(true)
         if (formData.email_id === '') {
             toast.error('Email ID is required!')
             return
@@ -36,13 +39,16 @@ function Login() {
         await apiCall('/login_users', '', dataObject, 'POST').then(res => {
             if (res.data) {
                 let token = res.data
+                setIsLoading(false)
                 localStorage.setItem('userToken', token)
                 toast.success('Successfully login!')
                 navigate.push('/dashboard')
             } else {
+                setIsLoading(false)
                 toast.error(res.error)
             }
         }).catch(err => {
+            setIsLoading(false)
             console.log(err);
         })
 
@@ -102,7 +108,7 @@ function Login() {
                                 </FormControl>
                             </div>
                             <div className='mb-3'>
-                                <Button type='submit' variant='contained'>Login</Button>
+                                <Button type='submit' variant='contained' disabled={isLoading}>{isLoading?'Loading...':'Login'}</Button>
                             </div>
                         </form>
                         <Button onClick={()=> navigate.push('/registration')}>Create a new account?</Button>

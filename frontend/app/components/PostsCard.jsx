@@ -47,7 +47,6 @@ function PostsCard(props) {
         await apiCall('/create_likes_posts', token, dataObject, 'POST').then(res => {
             if (res.data) {
                 console.log('Liked');
-                props.getPost()
                 socket.emit("updatePost", 'Call data')
             } else {
                 console.log(res.error)
@@ -106,7 +105,7 @@ function PostsCard(props) {
                 console.log(res);
                 console.log('comments');
                 getCommentsByPostsId()
-                props.getPost()
+                // props.getPost()
                 socket.emit("updatePost", 'Call data')
             } else {
                 console.log(res.error)
@@ -164,6 +163,7 @@ function PostsCard(props) {
                                                 <IconButton
                                                 type='submit'
                                                     edge="end"
+                                                    disabled={comments === ''?true:false}
                                                 >
                                                     <SendOutlined />
                                                 </IconButton>
