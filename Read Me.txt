@@ -2,8 +2,8 @@ Step 1 :
     - create database in mysql
     - change configuration db connection in "mysql_db_schema.js" file.
 Step 2 :
-    - change CLIENT_URL in "server/.env" file
-    - change NEXT_PUBLIC_API_URL in "frontend/.env" file
+    - change CLIENT_URL in "server/.env" file with IP for socket connection
+    - change NEXT_PUBLIC_API_URL in "frontend/.env" file with IP for socket connection
 Step 3 :
     - in terminal npm i in both directory
 Stem 4 :
