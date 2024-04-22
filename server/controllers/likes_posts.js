@@ -44,10 +44,10 @@ exports.likes_posts_update = async (req, res) => {
 
 exports.likes_posts_delete = async (req, res) => {
     knex('likes_posts')
-        .where('idcode', req.body.idcode)
+        .where({ 'user_id': req.body.user_id, 'post_id': req.body.post_id })
         .del()
         .then(() => {
-            res.json({ data: `likes_posts ${req.body.idcode} deleted.` })
+            res.json({ data: `likes_posts ${req.body.post_id} deleted.` })
         })
         .catch(err => {
             res.json({ error: `There was an error deleting ${req.body.id} likes_posts: ${err}` })
@@ -62,12 +62,12 @@ exports.likes_posts_by_id_code = async (req, res) => {
             .select('*')
             .then(messageData => {
                 // console.log(messageData.length);
-                if(messageData.length > 0){
+                if (messageData.length > 0) {
 
                     res.json({ data: messageData[0] })
-                }else{
+                } else {
                     res.json({ error: 'invalid idcode' })
-                    
+
                 }
             })
             .catch(err => {

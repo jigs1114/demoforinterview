@@ -57,6 +57,27 @@ function PostsCard(props) {
         })
     }
 
+    const onClickDislikeBtn = async () => {
+        let token = localStorage.getItem('userToken')
+        let userData = props.userData
+        let dataObject = {
+            post_id: postData.idcode,
+            user_id: userData.idcode
+        }
+        console.log(dataObject);
+        await apiCall('/delete_likes_posts', token, dataObject, 'POST').then(res => {
+            if (res.data) {
+                console.log('disliked');
+                socket.emit("updatePost", 'Call data')
+            } else {
+                console.log(res.error)
+                toast.error('Something went to wrong')
+            }
+        }).catch(err => {
+            console.log(err);
+        })
+    }
+
 
     // const handleMenu = (event) => {
     //     setAnchorEl(event.currentTarget);
@@ -232,7 +253,7 @@ function PostsCard(props) {
                     </Typography>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <IconButton aria-label="add to favorites" onClick={postData.is_liked === 0 ? onClickLikeBtn : null}>
+                    <IconButton aria-label="add to favorites" onClick={postData.is_liked === 0 ? onClickLikeBtn : onClickDislikeBtn}>
                         {postData.is_liked === 0 ? <FavoriteIcon /> : <FavoriteIcon color='error' />}<small className='ms-2'>{postData.likes_count}</small>
                     </IconButton>
                     <IconButton aria-label="comment" onClick={toggleDrawer}>
